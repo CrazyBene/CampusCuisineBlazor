@@ -1,10 +1,10 @@
 using CampusCuisine.Client.Models;
 
-namespace CampusCuisine.Client.Data;
+namespace CampusCuisine.Client.Services;
 
-public static class SampleRecipes
+public class RecipeService
 {
-    public static readonly List<Recipe> All =
+    private readonly List<Recipe> recipes =
     [
         new()
         {
@@ -47,4 +47,27 @@ public static class SampleRecipes
             Instructions = "Fry onion and garlic, add tomatoes and stock, simmer and blend."
         }
     ];
+
+    private readonly Dictionary<int, int> ratings = [];
+
+    public Task<List<Recipe>> GetRecipesAsync()
+    {
+        return Task.FromResult(recipes);
+    }
+
+    public Task<Recipe?> GetRecipeAsync(int id)
+    {
+        return Task.FromResult(recipes.FirstOrDefault(r => r.Id == id));
+    }
+
+    public Task<int> GetRatingAsync(int recipeId)
+    {
+        return Task.FromResult(ratings.GetValueOrDefault(recipeId));
+    }
+
+    public Task RateAsync(int recipeId, int stars)
+    {
+        ratings[recipeId] = stars;
+        return Task.CompletedTask;
+    }
 }

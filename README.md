@@ -33,3 +33,7 @@ Die Rezeptliste hat jetzt ein Suchfeld: Mit `@bind` und `@bind:event="oninput"` 
 ## Step 4: Layouts & Routing
 
 Das Layout hat jetzt ein Menü (`NavMenu`) mit `NavLink`s, die den aktiven Link hervorheben, und es gibt eine neue Seite `About`. Auf der Rezeptliste kann man nach Kategorie filtern: Die Kategorie steht als Query-Parameter in der Adresse (`/recipes?category=Pasta`) und wird mit `[SupplyParameterFromQuery]` gelesen. Die Buttons navigieren über den `NavigationManager`, so lässt sich ein Filter als Link teilen und der Zurück-Button des Browsers funktioniert.
+
+## Step 5: Services & Dependency Injection
+
+Die Seiten greifen nicht mehr direkt auf eine statische Liste zu, sondern auf den Service `RecipeService`. Er hält die Rezepte und die Bewertungen im Speicher und wird in `Program.cs` registriert, die Seiten bekommen sie über `@inject`. Die Methoden sind schon asynchron, damit der Service später ohne Änderung an den Seiten durch einen Aufruf an das Backend ersetzt werden kann. Bewertungen bleiben jetzt beim Wechsel zwischen den Seiten erhalten, aber noch nicht nach einem Neuladen.

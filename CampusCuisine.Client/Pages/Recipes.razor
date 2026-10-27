@@ -1,6 +1,7 @@
 @page "/"
 @page "/recipes"
 @inject NavigationManager Navigation
+@inject RecipeService RecipeService
 
 <PageTitle>Recipes</PageTitle>
 
@@ -28,14 +29,18 @@
     }
 </div>
 
-<p class="text-muted">@FilteredRecipes.Count() of @recipes.Count recipes</p>
-
-@if (!FilteredRecipes.Any())
+@if (recipes is null)
+{
+    <p>Loading recipes...</p>
+}
+else if (!FilteredRecipes.Any())
 {
     <p>No recipes match your search.</p>
 }
 else
 {
+    <p class="text-muted">@FilteredRecipes.Count() of @recipes.Count recipes</p>
+
     <div class="recipe-list">
         @foreach (var recipe in FilteredRecipes)
         {
@@ -48,19 +53,19 @@ else
     [SupplyParameterFromQuery]
     public string? Category { get; set; }
 
-    private List<Recipe> recipes = [];
+    private List<Recipe>? recipes;
     private List<string> categories = [];
     private string search = "";
 
-    private IEnumerable<Recipe> FilteredRecipes => recipes
+    private IEnumerable<Recipe> FilteredRecipes => (recipes ?? [])
         .Where(r => Category is null || r.Category == Category)
         .Where(r =>
             r.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
             r.Ingredients.Contains(search, StringComparison.OrdinalIgnoreCase));
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        recipes = SampleRecipes.All;
+        recipes = await RecipeService.GetRecipesAsync();
         categories = recipes.Select(r => r.Category).Distinct().Order().ToList();
     }
 
