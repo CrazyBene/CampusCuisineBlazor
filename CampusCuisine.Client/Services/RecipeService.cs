@@ -1,73 +1,38 @@
-using CampusCuisine.Client.Models;
+using System.Net;
+using System.Net.Http.Json;
+using CampusCuisine.Shared.Models;
 
 namespace CampusCuisine.Client.Services;
 
-public class RecipeService
+public class RecipeService(HttpClient http)
 {
-    private readonly List<Recipe> recipes =
-    [
-        new()
+    public async Task<List<Recipe>> GetRecipesAsync()
+    {
+        return await http.GetFromJsonAsync<List<Recipe>>("recipes") ?? [];
+    }
+
+    public async Task<Recipe?> GetRecipeAsync(Guid id)
+    {
+        var response = await http.GetAsync($"recipes/{id}");
+
+        if (response.StatusCode == HttpStatusCode.NotFound)
         {
-            Id = 1,
-            Name = "Spaghetti Carbonara",
-            Category = "Pasta",
-            Ingredients = "Spaghetti, eggs, bacon, parmesan, pepper",
-            Instructions = "Cook the spaghetti. Fry the bacon. Mix eggs and parmesan, stir everything together off the heat."
-        },
-        new()
-        {
-            Id = 2,
-            Name = "Overnight Oats",
-            Category = "Breakfast",
-            Ingredients = "Oats, milk, yogurt, honey, berries",
-            Instructions = "Mix oats, milk, yogurt and honey. Leave in the fridge overnight, top with berries."
-        },
-        new()
-        {
-            Id = 3,
-            Name = "Chili sin Carne",
-            Category = "Stew",
-            Ingredients = "Kidney beans, corn, tomatoes, onion, chili, cumin",
-            Instructions = "Fry the onion, add everything else and let it simmer for 30 minutes."
-        },
-        new()
-        {
-            Id = 4,
-            Name = "Fried Rice",
-            Category = "Rice",
-            Ingredients = "Rice from yesterday, eggs, peas, carrots, soy sauce",
-            Instructions = "Scramble the eggs, add vegetables and rice, season with soy sauce."
-        },
-        new()
-        {
-            Id = 5,
-            Name = "Tomato Soup",
-            Category = "Soup",
-            Ingredients = "Tomatoes, onion, garlic, vegetable stock, basil",
-            Instructions = "Fry onion and garlic, add tomatoes and stock, simmer and blend."
+            return null;
         }
-    ];
 
-    private readonly Dictionary<int, int> ratings = [];
-
-    public Task<List<Recipe>> GetRecipesAsync()
-    {
-        return Task.FromResult(recipes);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<Recipe>();
     }
 
-    public Task<Recipe?> GetRecipeAsync(int id)
+    public async Task<int> GetRatingAsync(Guid recipeId)
     {
-        return Task.FromResult(recipes.FirstOrDefault(r => r.Id == id));
+        var rating = await http.GetFromJsonAsync<Rating>($"recipes/{recipeId}/rating");
+        return rating?.Stars ?? 0;
     }
 
-    public Task<int> GetRatingAsync(int recipeId)
+    public async Task RateAsync(Guid recipeId, int stars)
     {
-        return Task.FromResult(ratings.GetValueOrDefault(recipeId));
-    }
-
-    public Task RateAsync(int recipeId, int stars)
-    {
-        ratings[recipeId] = stars;
-        return Task.CompletedTask;
+        var response = await http.PutAsJsonAsync($"recipes/{recipeId}/rating", new Rating { Stars = stars });
+        response.EnsureSuccessStatusCode();
     }
 }

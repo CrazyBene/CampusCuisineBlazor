@@ -12,7 +12,13 @@ Voraussetzung ist das [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet
 dotnet run --project CampusCuisine.Client
 ```
 
-Die App läuft dann unter http://localhost:5100.
+Die App läuft dann unter http://localhost:5100. Ab Schritt 6 braucht sie zusätzlich das Backend, in einem zweiten Terminal:
+
+```bash
+dotnet run --project CampusCuisine.Api
+```
+
+Das Backend läuft unter http://localhost:5200.
 
 ## Step 0: Setup
 
@@ -37,3 +43,7 @@ Das Layout hat jetzt ein Menü (`NavMenu`) mit `NavLink`s, die den aktiven Link 
 ## Step 5: Services & Dependency Injection
 
 Die Seiten greifen nicht mehr direkt auf eine statische Liste zu, sondern auf den Service `RecipeService`. Er hält die Rezepte und die Bewertungen im Speicher und wird in `Program.cs` registriert, die Seiten bekommen sie über `@inject`. Die Methoden sind schon asynchron, damit der Service später ohne Änderung an den Seiten durch einen Aufruf an das Backend ersetzt werden kann. Bewertungen bleiben jetzt beim Wechsel zwischen den Seiten erhalten, aber noch nicht nach einem Neuladen.
+
+## Step 6: HTTP-Client & Code Sharing
+
+Die Daten kommen jetzt aus einem eigenen Backend (`CampusCuisine.Api`), einer Minimal API, die Rezepte und Bewertungen im Speicher hält. Die Models liegen im neuen Projekt `CampusCuisine.Shared`, das Frontend und Backend beide referenzieren. Die Ids sind jetzt `Guid`s, wie in der Web API. Der `RecipeService` im Frontend ruft das Backend über `HttpClient` auf, die Adresse steht in `wwwroot/appsettings.json`. Die Seiten zeigen einen Ladezustand und eine Fehlermeldung, wenn das Backend nicht läuft. Bewertungen bleiben jetzt auch nach dem Neuladen erhalten, solange das Backend läuft.

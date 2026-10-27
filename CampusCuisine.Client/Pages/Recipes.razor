@@ -29,7 +29,11 @@
     }
 </div>
 
-@if (recipes is null)
+@if (error is not null)
+{
+    <div class="alert alert-danger">@error</div>
+}
+else if (recipes is null)
 {
     <p>Loading recipes...</p>
 }
@@ -56,6 +60,7 @@ else
     private List<Recipe>? recipes;
     private List<string> categories = [];
     private string search = "";
+    private string? error;
 
     private IEnumerable<Recipe> FilteredRecipes => (recipes ?? [])
         .Where(r => Category is null || r.Category == Category)
@@ -65,7 +70,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        recipes = await RecipeService.GetRecipesAsync();
+        try
+        {
+            recipes = await RecipeService.GetRecipesAsync();
+        }
+        catch (HttpRequestException)
+        {
+            error = "Could not load the recipes. Is the backend running?";
+            return;
+        }
+
         categories = recipes.Select(r => r.Category).Distinct().Order().ToList();
     }
 

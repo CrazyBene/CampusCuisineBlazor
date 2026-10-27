@@ -1,13 +1,21 @@
-@page "/recipes/{Id:int}"
+@page "/recipes/{Id:guid}"
 @inject RecipeService RecipeService
 
-@if (recipe is null)
+@if (error is not null)
+{
+    <div class="alert alert-danger">@error</div>
+}
+else if (loading)
+{
+    <p>Loading recipe...</p>
+}
+else if (recipe is null)
 {
     <PageTitle>Recipe not found</PageTitle>
 
     <h1>Recipe not found</h1>
 
-    <p>There is no recipe with the id @Id.</p>
+    <p>There is no recipe with this id.</p>
 }
 else
 {
@@ -38,15 +46,28 @@ else
 
 @code {
     [Parameter]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
+    private bool loading = true;
+    private string? error;
     private Recipe? recipe;
     private int rating;
 
     protected override async Task OnParametersSetAsync()
     {
-        recipe = await RecipeService.GetRecipeAsync(Id);
-        rating = await RecipeService.GetRatingAsync(Id);
+        loading = true;
+
+        try
+        {
+            recipe = await RecipeService.GetRecipeAsync(Id);
+            rating = await RecipeService.GetRatingAsync(Id);
+        }
+        catch (HttpRequestException)
+        {
+            error = "Could not load the recipe. Is the backend running?";
+        }
+
+        loading = false;
     }
 
     private async Task SaveRating()
