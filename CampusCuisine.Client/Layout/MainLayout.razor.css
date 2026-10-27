@@ -1,0 +1,13 @@
+.top-bar {
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    padding: 0 1.5rem;
+    background-color: #2f6f4f;
+    color: white;
+}
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
