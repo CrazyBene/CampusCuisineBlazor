@@ -1,5 +1,6 @@
 @page "/"
 @page "/recipes"
+@inject NavigationManager Navigation
 
 <PageTitle>Recipes</PageTitle>
 
@@ -13,11 +14,25 @@
     <button class="btn btn-outline-secondary" @onclick="ClearSearch">Clear</button>
 </div>
 
+<div class="categories">
+    <button class="btn btn-sm @(Category is null ? "btn-success" : "btn-outline-success")"
+            @onclick="() => SelectCategory(null)">
+        All
+    </button>
+    @foreach (var category in categories)
+    {
+        <button class="btn btn-sm @(category == Category ? "btn-success" : "btn-outline-success")"
+                @onclick="() => SelectCategory(category)">
+            @category
+        </button>
+    }
+</div>
+
 <p class="text-muted">@FilteredRecipes.Count() of @recipes.Count recipes</p>
 
 @if (!FilteredRecipes.Any())
 {
-    <p>No recipes match "@search".</p>
+    <p>No recipes match your search.</p>
 }
 else
 {
@@ -30,20 +45,32 @@ else
 }
 
 @code {
+    [SupplyParameterFromQuery]
+    public string? Category { get; set; }
+
     private List<Recipe> recipes = [];
+    private List<string> categories = [];
     private string search = "";
 
-    private IEnumerable<Recipe> FilteredRecipes => recipes.Where(r =>
-        r.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-        r.Ingredients.Contains(search, StringComparison.OrdinalIgnoreCase));
+    private IEnumerable<Recipe> FilteredRecipes => recipes
+        .Where(r => Category is null || r.Category == Category)
+        .Where(r =>
+            r.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+            r.Ingredients.Contains(search, StringComparison.OrdinalIgnoreCase));
 
     protected override void OnInitialized()
     {
         recipes = SampleRecipes.All;
+        categories = recipes.Select(r => r.Category).Distinct().Order().ToList();
     }
 
     private void ClearSearch()
     {
         search = "";
+    }
+
+    private void SelectCategory(string? category)
+    {
+        Navigation.NavigateTo(Navigation.GetUriWithQueryParameter("category", category));
     }
 }

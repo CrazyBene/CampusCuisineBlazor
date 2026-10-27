@@ -29,3 +29,7 @@ Die Rezepte kommen jetzt aus einer Liste (`Data/SampleRecipes.cs`) und werden mi
 ## Step 3: Data Binding & Events
 
 Die Rezeptliste hat jetzt ein Suchfeld: Mit `@bind` und `@bind:event="oninput"` filtert die Liste schon beim Tippen nach Name oder Zutat, der Button "Clear" leert das Feld über `@onclick`. Auf der Detailseite kann man ein Rezept mit der neuen Komponente `StarRating` bewerten. Sie meldet die Auswahl über einen `EventCallback` an die Seite zurück und unterstützt so `@bind-Value`. Die Bewertung wird noch nirgends gespeichert.
+
+## Step 4: Layouts & Routing
+
+Das Layout hat jetzt ein Menü (`NavMenu`) mit `NavLink`s, die den aktiven Link hervorheben, und es gibt eine neue Seite `About`. Auf der Rezeptliste kann man nach Kategorie filtern: Die Kategorie steht als Query-Parameter in der Adresse (`/recipes?category=Pasta`) und wird mit `[SupplyParameterFromQuery]` gelesen. Die Buttons navigieren über den `NavigationManager`, so lässt sich ein Filter als Link teilen und der Zurück-Button des Browsers funktioniert.

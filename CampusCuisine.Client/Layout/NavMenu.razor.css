@@ -1,0 +1,18 @@
+.nav-menu {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.nav-menu ::deep a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+}
+
+.nav-menu ::deep a:hover,
+.nav-menu ::deep a.active {
+    color: white;
+}
+
+.nav-menu ::deep a.active {
+    font-weight: 600;
+}
