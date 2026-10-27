@@ -17,3 +17,7 @@ Die App läuft dann unter http://localhost:5100.
 ## Step 0: Setup
 
 Die App wurde mit dem Template `blazorwasm` erstellt und aufgeräumt: Die Beispielseiten (Counter, Weather) und das Menü sind entfernt, übrig bleiben ein einfaches Layout und eine Seite für nicht gefundene Adressen. Die App hat noch keine eigene Seite, jede Adresse zeigt deshalb "Not found".
+
+## Step 1: Pages & Komponenten
+
+Die App bekommt ihre erste Seite: `Recipes` unter `/` und `/recipes`. Sie zeigt zwei `RecipeCard` Komponenten, jede mit eigenem, isoliertem CSS. Die Daten stehen noch fest in der Komponente, deshalb zeigen beide Karten dasselbe Rezept.

@@ -1,0 +1,24 @@
+.recipe-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.25rem;
+}
+
+p {
+    margin: 0;
+    color: #6c757d;
+}
+
+.category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2f6f4f;
+}
