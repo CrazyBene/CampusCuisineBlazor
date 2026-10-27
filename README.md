@@ -21,3 +21,7 @@ Die App wurde mit dem Template `blazorwasm` erstellt und aufgeräumt: Die Beispi
 ## Step 1: Pages & Komponenten
 
 Die App bekommt ihre erste Seite: `Recipes` unter `/` und `/recipes`. Sie zeigt zwei `RecipeCard` Komponenten, jede mit eigenem, isoliertem CSS. Die Daten stehen noch fest in der Komponente, deshalb zeigen beide Karten dasselbe Rezept.
+
+## Step 2: Komponenten Features
+
+Die Rezepte kommen jetzt aus einer Liste (`Data/SampleRecipes.cs`) und werden mit `@foreach` angezeigt. Jede `RecipeCard` bekommt ihr Rezept als Parameter, `@if` zeigt einen Hinweis, wenn es keine Rezepte gibt. Neu ist die Detailseite unter `/recipes/{id}` mit Routenparameter. Das Logo im Header liegt als statische Datei in `wwwroot/images`.

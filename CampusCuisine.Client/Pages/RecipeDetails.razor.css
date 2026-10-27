@@ -1,0 +1,11 @@
+.category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2f6f4f;
+}
+
+h2 {
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+}

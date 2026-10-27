@@ -7,7 +7,25 @@
 
 <p>Recipes from students, for students.</p>
 
-<div class="recipe-list">
-    <RecipeCard />
-    <RecipeCard />
-</div>
+@if (recipes.Count == 0)
+{
+    <p>No recipes yet.</p>
+}
+else
+{
+    <div class="recipe-list">
+        @foreach (var recipe in recipes)
+        {
+            <RecipeCard Recipe="recipe" />
+        }
+    </div>
+}
+
+@code {
+    private List<Recipe> recipes = [];
+
+    protected override void OnInitialized()
+    {
+        recipes = SampleRecipes.All;
+    }
+}
