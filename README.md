@@ -25,3 +25,7 @@ Die App bekommt ihre erste Seite: `Recipes` unter `/` und `/recipes`. Sie zeigt 
 ## Step 2: Komponenten Features
 
 Die Rezepte kommen jetzt aus einer Liste (`Data/SampleRecipes.cs`) und werden mit `@foreach` angezeigt. Jede `RecipeCard` bekommt ihr Rezept als Parameter, `@if` zeigt einen Hinweis, wenn es keine Rezepte gibt. Neu ist die Detailseite unter `/recipes/{id}` mit Routenparameter. Das Logo im Header liegt als statische Datei in `wwwroot/images`.
+
+## Step 3: Data Binding & Events
+
+Die Rezeptliste hat jetzt ein Suchfeld: Mit `@bind` und `@bind:event="oninput"` filtert die Liste schon beim Tippen nach Name oder Zutat, der Button "Clear" leert das Feld über `@onclick`. Auf der Detailseite kann man ein Rezept mit der neuen Komponente `StarRating` bewerten. Sie meldet die Auswahl über einen `EventCallback` an die Seite zurück und unterstützt so `@bind-Value`. Die Bewertung wird noch nirgends gespeichert.

@@ -7,14 +7,22 @@
 
 <p>Recipes from students, for students.</p>
 
-@if (recipes.Count == 0)
+<div class="search">
+    <input class="form-control" placeholder="Search by name or ingredient"
+           @bind="search" @bind:event="oninput" />
+    <button class="btn btn-outline-secondary" @onclick="ClearSearch">Clear</button>
+</div>
+
+<p class="text-muted">@FilteredRecipes.Count() of @recipes.Count recipes</p>
+
+@if (!FilteredRecipes.Any())
 {
-    <p>No recipes yet.</p>
+    <p>No recipes match "@search".</p>
 }
 else
 {
     <div class="recipe-list">
-        @foreach (var recipe in recipes)
+        @foreach (var recipe in FilteredRecipes)
         {
             <RecipeCard Recipe="recipe" />
         }
@@ -23,9 +31,19 @@ else
 
 @code {
     private List<Recipe> recipes = [];
+    private string search = "";
+
+    private IEnumerable<Recipe> FilteredRecipes => recipes.Where(r =>
+        r.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+        r.Ingredients.Contains(search, StringComparison.OrdinalIgnoreCase));
 
     protected override void OnInitialized()
     {
         recipes = SampleRecipes.All;
+    }
+
+    private void ClearSearch()
+    {
+        search = "";
     }
 }

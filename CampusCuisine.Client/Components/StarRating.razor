@@ -1,0 +1,28 @@
+<div class="star-rating">
+    @for (var i = 1; i <= MaxStars; i++)
+    {
+        var star = i;
+        <button type="button"
+                class="star @(star <= Value ? "filled" : "")"
+                title="@star of @MaxStars"
+                @onclick="() => SetValue(star)">
+            @(star <= Value ? "★" : "☆")
+        </button>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int Value { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+    [Parameter]
+    public int MaxStars { get; set; } = 5;
+
+    private async Task SetValue(int value)
+    {
+        await ValueChanged.InvokeAsync(value);
+    }
+}

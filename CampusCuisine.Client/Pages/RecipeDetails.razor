@@ -25,6 +25,12 @@ else
 
     <h2>Instructions</h2>
     <p>@recipe.Instructions</p>
+
+    <h2>Your rating</h2>
+    <StarRating @bind-Value="rating" />
+    <p class="text-muted">
+        @(rating == 0 ? "Not rated yet." : $"You rated this recipe {rating} of 5.")
+    </p>
 }
 
 <a href="recipes">Back to all recipes</a>
@@ -34,9 +40,11 @@ else
     public int Id { get; set; }
 
     private Recipe? recipe;
+    private int rating;
 
     protected override void OnParametersSet()
     {
         recipe = SampleRecipes.All.FirstOrDefault(r => r.Id == Id);
+        rating = 0;
     }
 }
