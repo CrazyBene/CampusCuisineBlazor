@@ -2,9 +2,9 @@
 @inject RecipeService RecipeService
 @inject NavigationManager Navigation
 
-<PageTitle>New recipe</PageTitle>
+<PageTitle>@L["New recipe"]</PageTitle>
 
-<h1>New recipe</h1>
+<h1>@L["New recipe"]</h1>
 
 @if (error is not null)
 {
@@ -15,15 +15,15 @@
     <DataAnnotationsValidator />
 
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">@L["Name"]</label>
         <InputText id="name" class="form-control" @bind-Value="recipe.Name" />
         <ValidationMessage For="() => recipe.Name" />
     </div>
 
     <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
+        <label for="category" class="form-label">@L["Category"]</label>
         <InputSelect id="category" class="form-select" @bind-Value="recipe.Category">
-            <option value="">Choose a category</option>
+            <option value="">@L["Choose a category"]</option>
             @foreach (var category in RecipeCategories.All)
             {
                 <option value="@category">@category</option>
@@ -33,19 +33,19 @@
     </div>
 
     <div class="mb-3">
-        <label for="ingredients" class="form-label">Ingredients</label>
-        <InputText id="ingredients" class="form-control" placeholder="Separated by commas"
+        <label for="ingredients" class="form-label">@L["Ingredients"]</label>
+        <InputText id="ingredients" class="form-control" placeholder="@L["Separated by commas"]"
                    @bind-Value="recipe.Ingredients" />
         <ValidationMessage For="() => recipe.Ingredients" />
     </div>
 
     <div class="mb-3">
-        <label for="instructions" class="form-label">Instructions</label>
+        <label for="instructions" class="form-label">@L["Instructions"]</label>
         <InputTextArea id="instructions" class="form-control" rows="4" @bind-Value="recipe.Instructions" />
         <ValidationMessage For="() => recipe.Instructions" />
     </div>
 
-    <button type="submit" class="btn btn-success" disabled="@saving">Save recipe</button>
+    <button type="submit" class="btn btn-success" disabled="@saving">@L["Save recipe"]</button>
 </EditForm>
 
 @code {
@@ -65,7 +65,7 @@
         }
         catch (HttpRequestException)
         {
-            error = "Could not save the recipe. Please try again.";
+            error = L["Could not save the recipe. Please try again."];
         }
 
         saving = false;

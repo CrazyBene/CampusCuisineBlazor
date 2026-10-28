@@ -8,15 +8,15 @@
 }
 else if (loading)
 {
-    <p>Loading recipe...</p>
+    <p>@L["Loading recipe..."]</p>
 }
 else if (recipe is null)
 {
-    <PageTitle>Recipe not found</PageTitle>
+    <PageTitle>@L["Recipe not found"]</PageTitle>
 
-    <h1>Recipe not found</h1>
+    <h1>@L["Recipe not found"]</h1>
 
-    <p>There is no recipe with this id.</p>
+    <p>@L["There is no recipe with this id."]</p>
 }
 else
 {
@@ -28,7 +28,7 @@ else
     <FavoriteButton RecipeId="recipe.Id" />
 
     <h2>
-        Ingredients
+        @L["Ingredients"]
         <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="CopyIngredientsAsync">
             @copyText
         </button>
@@ -40,17 +40,17 @@ else
         }
     </ul>
 
-    <h2>Instructions</h2>
+    <h2>@L["Instructions"]</h2>
     <p>@recipe.Instructions</p>
 
-    <h2>Your rating</h2>
+    <h2>@L["Your rating"]</h2>
     <StarRating @bind-Value="rating" @bind-Value:after="SaveRating" />
     <p class="text-muted">
-        @(rating == 0 ? "Not rated yet." : $"You rated this recipe {rating} of 5.")
+        @(rating == 0 ? L["Not rated yet."] : L["You rated this recipe {0} of 5.", rating])
     </p>
 }
 
-<a href="recipes">Back to all recipes</a>
+<a href="recipes">@L["Back to all recipes"]</a>
 
 @code {
     [Parameter]
@@ -60,12 +60,12 @@ else
     private string? error;
     private Recipe? recipe;
     private int rating;
-    private string copyText = "Copy";
+    private string copyText = "";
 
     protected override async Task OnParametersSetAsync()
     {
         loading = true;
-        copyText = "Copy";
+        copyText = L["Copy"];
 
         try
         {
@@ -74,7 +74,7 @@ else
         }
         catch (HttpRequestException)
         {
-            error = "Could not load the recipe. Is the backend running?";
+            error = L["Could not load the recipe. Is the backend running?"];
         }
 
         loading = false;
@@ -87,11 +87,11 @@ else
         try
         {
             await JS.InvokeVoidAsync("navigator.clipboard.writeText", ingredients);
-            copyText = "Copied!";
+            copyText = L["Copied!"];
         }
         catch (JSException)
         {
-            copyText = "Copy failed";
+            copyText = L["Copy failed"];
         }
     }
 

@@ -1,0 +1,18 @@
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<select class="form-select form-select-sm language" aria-label="@L["Language"]"
+        value="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" @onchange="ChangeAsync">
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+</select>
+
+@code {
+    private async Task ChangeAsync(ChangeEventArgs e)
+    {
+        await JS.InvokeVoidAsync("localStorage.setItem", "culture", e.Value);
+
+        // The culture is set once at startup, so the app has to reload
+        Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+    }
+}

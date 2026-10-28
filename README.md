@@ -55,3 +55,7 @@ Unter "New recipe" lassen sich neue Rezepte anlegen. Die Seite nutzt `EditForm` 
 ## Step 8: JS-Interop
 
 Auf der Detailseite kann man die Zutaten mit "Copy" in die Zwischenablage kopieren. Dafür ruft Blazor über `IJSRuntime` direkt die Browser-Funktion `navigator.clipboard.writeText` auf. Außerdem lassen sich Rezepte als Favorit markieren: Die Komponente `FavoriteButton` lädt ihr eigenes JavaScript-Modul (`FavoriteButton.razor.js`), das die Favoriten im `localStorage` des Browsers speichert. Favoriten bleiben so auch nach dem Neuladen erhalten, gelten aber nur für diesen Browser.
+
+## Step 9: Lokalisierung
+
+Die Oberfläche gibt es jetzt auf Englisch und Deutsch. Alle Texte laufen über `IStringLocalizer<SharedResource>` (in `_Imports.razor` als `L` injiziert), die deutschen Übersetzungen stehen in `Resources/SharedResource.de.resx`. Der englische Text ist gleichzeitig der Schlüssel, fehlt eine Übersetzung, erscheint er unverändert. Über die Auswahl rechts im Header wechselt man die Sprache: Sie wird im `localStorage` gespeichert, die App lädt neu und `Program.cs` setzt die Kultur beim Start. Die Rezepte selbst und die Meldungen der Validierung bleiben auf Englisch.

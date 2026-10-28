@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Recipes" xml:space="preserve">
+    <value>Rezepte</value>
+  </data>
+  <data name="New recipe" xml:space="preserve">
+    <value>Neues Rezept</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Über uns</value>
+  </data>
+  <data name="Recipes from students, for students." xml:space="preserve">
+    <value>Rezepte von Studenten, für Studenten.</value>
+  </data>
+  <data name="Search by name or ingredient" xml:space="preserve">
+    <value>Nach Name oder Zutat suchen</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Leeren</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Loading recipes..." xml:space="preserve">
+    <value>Rezepte werden geladen...</value>
+  </data>
+  <data name="No recipes match your search." xml:space="preserve">
+    <value>Keine Rezepte passen zu deiner Suche.</value>
+  </data>
+  <data name="{0} of {1} recipes" xml:space="preserve">
+    <value>{0} von {1} Rezepten</value>
+  </data>
+  <data name="Could not load the recipes. Is the backend running?" xml:space="preserve">
+    <value>Die Rezepte konnten nicht geladen werden. Läuft das Backend?</value>
+  </data>
+  <data name="Loading recipe..." xml:space="preserve">
+    <value>Rezept wird geladen...</value>
+  </data>
+  <data name="Recipe not found" xml:space="preserve">
+    <value>Rezept nicht gefunden</value>
+  </data>
+  <data name="There is no recipe with this id." xml:space="preserve">
+    <value>Es gibt kein Rezept mit dieser Id.</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Zutaten</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Zubereitung</value>
+  </data>
+  <data name="Your rating" xml:space="preserve">
+    <value>Deine Bewertung</value>
+  </data>
+  <data name="Not rated yet." xml:space="preserve">
+    <value>Noch nicht bewertet.</value>
+  </data>
+  <data name="You rated this recipe {0} of 5." xml:space="preserve">
+    <value>Du hast dieses Rezept mit {0} von 5 bewertet.</value>
+  </data>
+  <data name="Back to all recipes" xml:space="preserve">
+    <value>Zurück zu allen Rezepten</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="Copied!" xml:space="preserve">
+    <value>Kopiert!</value>
+  </data>
+  <data name="Copy failed" xml:space="preserve">
+    <value>Kopieren fehlgeschlagen</value>
+  </data>
+  <data name="Could not load the recipe. Is the backend running?" xml:space="preserve">
+    <value>Das Rezept konnte nicht geladen werden. Läuft das Backend?</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="Choose a category" xml:space="preserve">
+    <value>Kategorie wählen</value>
+  </data>
+  <data name="Separated by commas" xml:space="preserve">
+    <value>Mit Kommas getrennt</value>
+  </data>
+  <data name="Save recipe" xml:space="preserve">
+    <value>Rezept speichern</value>
+  </data>
+  <data name="Could not save the recipe. Please try again." xml:space="preserve">
+    <value>Das Rezept konnte nicht gespeichert werden. Bitte versuche es erneut.</value>
+  </data>
+  <data name="About Campus Cuisine" xml:space="preserve">
+    <value>Über Campus Cuisine</value>
+  </data>
+  <data name="Campus Cuisine is a place for students to share their favorite recipes: cheap, quick and tasty." xml:space="preserve">
+    <value>Campus Cuisine ist ein Ort, an dem Studenten ihre Lieblingsrezepte teilen: günstig, schnell und lecker.</value>
+  </data>
+  <data name="Not found" xml:space="preserve">
+    <value>Nicht gefunden</value>
+  </data>
+  <data name="Sorry, there is nothing at this address." xml:space="preserve">
+    <value>Unter dieser Adresse gibt es leider nichts.</value>
+  </data>
+  <data name="Add to favorites" xml:space="preserve">
+    <value>Zu Favoriten hinzufügen</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>Favorit</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+</root>

@@ -3,7 +3,7 @@
 
 <button type="button" class="btn @(isFavorite ? "btn-danger" : "btn-outline-danger")"
         disabled="@(module is null)" @onclick="ToggleAsync">
-    @(isFavorite ? "♥ Favorite" : "♡ Add to favorites")
+    @(isFavorite ? $"♥ {L["Favorite"]}" : $"♡ {L["Add to favorites"]}")
 </button>
 
 @code {

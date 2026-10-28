@@ -3,22 +3,22 @@
 @inject NavigationManager Navigation
 @inject RecipeService RecipeService
 
-<PageTitle>Recipes</PageTitle>
+<PageTitle>@L["Recipes"]</PageTitle>
 
-<h1>Recipes</h1>
+<h1>@L["Recipes"]</h1>
 
-<p>Recipes from students, for students.</p>
+<p>@L["Recipes from students, for students."]</p>
 
 <div class="search">
-    <input class="form-control" placeholder="Search by name or ingredient"
+    <input class="form-control" placeholder="@L["Search by name or ingredient"]"
            @bind="search" @bind:event="oninput" />
-    <button class="btn btn-outline-secondary" @onclick="ClearSearch">Clear</button>
+    <button class="btn btn-outline-secondary" @onclick="ClearSearch">@L["Clear"]</button>
 </div>
 
 <div class="categories">
     <button class="btn btn-sm @(Category is null ? "btn-success" : "btn-outline-success")"
             @onclick="() => SelectCategory(null)">
-        All
+        @L["All"]
     </button>
     @foreach (var category in categories)
     {
@@ -35,15 +35,15 @@
 }
 else if (recipes is null)
 {
-    <p>Loading recipes...</p>
+    <p>@L["Loading recipes..."]</p>
 }
 else if (!FilteredRecipes.Any())
 {
-    <p>No recipes match your search.</p>
+    <p>@L["No recipes match your search."]</p>
 }
 else
 {
-    <p class="text-muted">@FilteredRecipes.Count() of @recipes.Count recipes</p>
+    <p class="text-muted">@L["{0} of {1} recipes", FilteredRecipes.Count(), recipes.Count]</p>
 
     <div class="recipe-list">
         @foreach (var recipe in FilteredRecipes)
@@ -76,7 +76,7 @@ else
         }
         catch (HttpRequestException)
         {
-            error = "Could not load the recipes. Is the backend running?";
+            error = L["Could not load the recipes. Is the backend running?"];
             return;
         }
 
