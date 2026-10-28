@@ -1,0 +1,38 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<button type="button" class="btn @(isFavorite ? "btn-danger" : "btn-outline-danger")"
+        disabled="@(module is null)" @onclick="ToggleAsync">
+    @(isFavorite ? "♥ Favorite" : "♡ Add to favorites")
+</button>
+
+@code {
+    [Parameter, EditorRequired]
+    public Guid RecipeId { get; set; }
+
+    private IJSObjectReference? module;
+    private bool isFavorite;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/FavoriteButton.razor.js");
+            isFavorite = await module.InvokeAsync<bool>("isFavorite", RecipeId);
+            StateHasChanged();
+        }
+    }
+
+    private async Task ToggleAsync()
+    {
+        isFavorite = await module!.InvokeAsync<bool>("toggleFavorite", RecipeId);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}

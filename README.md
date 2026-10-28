@@ -51,3 +51,7 @@ Die Daten kommen jetzt aus einem eigenen Backend (`CampusCuisine.Api`), einer Mi
 ## Step 7: Forms & Validierung
 
 Unter "New recipe" lassen sich neue Rezepte anlegen. Die Seite nutzt `EditForm` mit den Eingabe-Komponenten von Blazor, nach dem Speichern geht es direkt zum neuen Rezept. Die Regeln stehen als DataAnnotations (`[Required]`, `[StringLength]`, `[Range]`) an den Models im Shared-Projekt: Das Formular prüft sie im Browser, das Backend prüft dieselben Regeln mit `AddValidation()` noch einmal und antwortet bei ungültigen Daten mit 400. In `CampusCuisine.Api/CampusCuisine.Api.http` stehen Beispiel-Anfragen, auch ungültige, um das Backend ohne Frontend zu testen.
+
+## Step 8: JS-Interop
+
+Auf der Detailseite kann man die Zutaten mit "Copy" in die Zwischenablage kopieren. Dafür ruft Blazor über `IJSRuntime` direkt die Browser-Funktion `navigator.clipboard.writeText` auf. Außerdem lassen sich Rezepte als Favorit markieren: Die Komponente `FavoriteButton` lädt ihr eigenes JavaScript-Modul (`FavoriteButton.razor.js`), das die Favoriten im `localStorage` des Browsers speichert. Favoriten bleiben so auch nach dem Neuladen erhalten, gelten aber nur für diesen Browser.

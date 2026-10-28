@@ -1,5 +1,6 @@
 @page "/recipes/{Id:guid}"
 @inject RecipeService RecipeService
+@inject IJSRuntime JS
 
 @if (error is not null)
 {
@@ -24,7 +25,14 @@ else
     <span class="category">@recipe.Category</span>
     <h1>@recipe.Name</h1>
 
-    <h2>Ingredients</h2>
+    <FavoriteButton RecipeId="recipe.Id" />
+
+    <h2>
+        Ingredients
+        <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="CopyIngredientsAsync">
+            @copyText
+        </button>
+    </h2>
     <ul>
         @foreach (var ingredient in recipe.Ingredients.Split(", "))
         {
@@ -52,10 +60,12 @@ else
     private string? error;
     private Recipe? recipe;
     private int rating;
+    private string copyText = "Copy";
 
     protected override async Task OnParametersSetAsync()
     {
         loading = true;
+        copyText = "Copy";
 
         try
         {
@@ -68,6 +78,21 @@ else
         }
 
         loading = false;
+    }
+
+    private async Task CopyIngredientsAsync()
+    {
+        var ingredients = string.Join(Environment.NewLine, recipe!.Ingredients.Split(", "));
+
+        try
+        {
+            await JS.InvokeVoidAsync("navigator.clipboard.writeText", ingredients);
+            copyText = "Copied!";
+        }
+        catch (JSException)
+        {
+            copyText = "Copy failed";
+        }
     }
 
     private async Task SaveRating()
