@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="CampusCuisine.Api/CampusCuisine.Api.csproj" />
+  <Project Path="CampusCuisine.Client.Tests/CampusCuisine.Client.Tests.csproj" />
   <Project Path="CampusCuisine.Client/CampusCuisine.Client.csproj" />
   <Project Path="CampusCuisine.Shared/CampusCuisine.Shared.csproj" />
 </Solution>

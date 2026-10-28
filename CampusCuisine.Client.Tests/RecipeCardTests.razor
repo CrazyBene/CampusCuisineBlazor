@@ -1,0 +1,31 @@
+@inherits BunitContext
+
+@code {
+    public RecipeCardTests()
+    {
+        Services.AddLocalization();
+    }
+
+    private readonly Recipe recipe = new()
+    {
+        Id = Guid.Parse("3b0c7a52-6f1e-4c8e-9a41-1d2f5e8b7c01"),
+        Name = "Spaghetti Carbonara",
+        Category = "Pasta",
+        Ingredients = "Spaghetti, eggs, bacon, parmesan, pepper"
+    };
+
+    [Fact]
+    public void ShowsRecipeAndLinksToDetails()
+    {
+        // Arrange
+        var cut = Render(@<RecipeCard Recipe="recipe" />);
+
+        // Assert
+        cut.MarkupMatches(
+            @<a class="recipe-card" href="recipes/3b0c7a52-6f1e-4c8e-9a41-1d2f5e8b7c01">
+                <span class="category">Pasta</span>
+                <h2>Spaghetti Carbonara</h2>
+                <p>Spaghetti, eggs, bacon, parmesan, pepper</p>
+            </a>);
+    }
+}

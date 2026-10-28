@@ -59,3 +59,11 @@ Auf der Detailseite kann man die Zutaten mit "Copy" in die Zwischenablage kopier
 ## Step 9: Lokalisierung
 
 Die Oberfläche gibt es jetzt auf Englisch und Deutsch. Alle Texte laufen über `IStringLocalizer<SharedResource>` (in `_Imports.razor` als `L` injiziert), die deutschen Übersetzungen stehen in `Resources/SharedResource.de.resx`. Der englische Text ist gleichzeitig der Schlüssel, fehlt eine Übersetzung, erscheint er unverändert. Über die Auswahl rechts im Header wechselt man die Sprache: Sie wird im `localStorage` gespeichert, die App lädt neu und `Program.cs` setzt die Kultur beim Start. Die Rezepte selbst und die Meldungen der Validierung bleiben auf Englisch.
+
+## Step 10: Testen
+
+Das neue Projekt `CampusCuisine.Client.Tests` testet die Oberfläche mit bUnit und xUnit, ohne Browser. `StarRatingTests` prüft, dass die richtige Anzahl Sterne gefüllt ist und ein Klick den neuen Wert meldet. `RecipeCardTests` ist als Razor-Datei geschrieben und vergleicht das HTML der Karte. `RecipesPageTests` rendert die ganze Rezeptliste, das Backend ersetzt ein `FakeApiHandler`, der feste Rezepte als JSON zurückgibt. Weil jede Komponente den `IStringLocalizer` bekommt, meldet jeder Test die Lokalisierung an.
+
+```bash
+dotnet test
+```
