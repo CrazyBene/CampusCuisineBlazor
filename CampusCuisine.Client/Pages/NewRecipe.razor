@@ -1,0 +1,73 @@
+@page "/new-recipe"
+@inject RecipeService RecipeService
+@inject NavigationManager Navigation
+
+<PageTitle>New recipe</PageTitle>
+
+<h1>New recipe</h1>
+
+@if (error is not null)
+{
+    <div class="alert alert-danger">@error</div>
+}
+
+<EditForm Model="recipe" OnValidSubmit="SaveAsync" class="recipe-form">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText id="name" class="form-control" @bind-Value="recipe.Name" />
+        <ValidationMessage For="() => recipe.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <InputSelect id="category" class="form-select" @bind-Value="recipe.Category">
+            <option value="">Choose a category</option>
+            @foreach (var category in RecipeCategories.All)
+            {
+                <option value="@category">@category</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="() => recipe.Category" />
+    </div>
+
+    <div class="mb-3">
+        <label for="ingredients" class="form-label">Ingredients</label>
+        <InputText id="ingredients" class="form-control" placeholder="Separated by commas"
+                   @bind-Value="recipe.Ingredients" />
+        <ValidationMessage For="() => recipe.Ingredients" />
+    </div>
+
+    <div class="mb-3">
+        <label for="instructions" class="form-label">Instructions</label>
+        <InputTextArea id="instructions" class="form-control" rows="4" @bind-Value="recipe.Instructions" />
+        <ValidationMessage For="() => recipe.Instructions" />
+    </div>
+
+    <button type="submit" class="btn btn-success" disabled="@saving">Save recipe</button>
+</EditForm>
+
+@code {
+    private Recipe recipe = new();
+    private bool saving;
+    private string? error;
+
+    private async Task SaveAsync()
+    {
+        saving = true;
+        error = null;
+
+        try
+        {
+            var created = await RecipeService.CreateRecipeAsync(recipe);
+            Navigation.NavigateTo($"recipes/{created.Id}");
+        }
+        catch (HttpRequestException)
+        {
+            error = "Could not save the recipe. Please try again.";
+        }
+
+        saving = false;
+    }
+}

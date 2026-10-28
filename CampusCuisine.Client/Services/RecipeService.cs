@@ -24,6 +24,13 @@ public class RecipeService(HttpClient http)
         return await response.Content.ReadFromJsonAsync<Recipe>();
     }
 
+    public async Task<Recipe> CreateRecipeAsync(Recipe recipe)
+    {
+        var response = await http.PostAsJsonAsync("recipes", recipe);
+        response.EnsureSuccessStatusCode();
+        return (await response.Content.ReadFromJsonAsync<Recipe>())!;
+    }
+
     public async Task<int> GetRatingAsync(Guid recipeId)
     {
         var rating = await http.GetFromJsonAsync<Rating>($"recipes/{recipeId}/rating");

@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:5200
+
+### All recipes → 200
+GET {{baseUrl}}/recipes
+
+### Create a recipe → 201
+POST {{baseUrl}}/recipes
+Content-Type: application/json
+
+{
+  "name": "Pancakes",
+  "category": "Breakfast",
+  "ingredients": "Flour, milk, eggs, sugar",
+  "instructions": "Mix everything and fry small pancakes in a pan."
+}
+
+### Create an invalid recipe → 400, same rules as the form
+POST {{baseUrl}}/recipes
+Content-Type: application/json
+
+{
+  "name": "P",
+  "category": "",
+  "ingredients": "",
+  "instructions": ""
+}
+
+### Rate a recipe → 204
+PUT {{baseUrl}}/recipes/3b0c7a52-6f1e-4c8e-9a41-1d2f5e8b7c01/rating
+Content-Type: application/json
+
+{ "stars": 4 }
+
+### Rate with too many stars → 400
+PUT {{baseUrl}}/recipes/3b0c7a52-6f1e-4c8e-9a41-1d2f5e8b7c01/rating
+Content-Type: application/json
+
+{ "stars": 6 }

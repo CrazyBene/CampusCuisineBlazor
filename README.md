@@ -47,3 +47,7 @@ Die Seiten greifen nicht mehr direkt auf eine statische Liste zu, sondern auf de
 ## Step 6: HTTP-Client & Code Sharing
 
 Die Daten kommen jetzt aus einem eigenen Backend (`CampusCuisine.Api`), einer Minimal API, die Rezepte und Bewertungen im Speicher hält. Die Models liegen im neuen Projekt `CampusCuisine.Shared`, das Frontend und Backend beide referenzieren. Die Ids sind jetzt `Guid`s, wie in der Web API. Der `RecipeService` im Frontend ruft das Backend über `HttpClient` auf, die Adresse steht in `wwwroot/appsettings.json`. Die Seiten zeigen einen Ladezustand und eine Fehlermeldung, wenn das Backend nicht läuft. Bewertungen bleiben jetzt auch nach dem Neuladen erhalten, solange das Backend läuft.
+
+## Step 7: Forms & Validierung
+
+Unter "New recipe" lassen sich neue Rezepte anlegen. Die Seite nutzt `EditForm` mit den Eingabe-Komponenten von Blazor, nach dem Speichern geht es direkt zum neuen Rezept. Die Regeln stehen als DataAnnotations (`[Required]`, `[StringLength]`, `[Range]`) an den Models im Shared-Projekt: Das Formular prüft sie im Browser, das Backend prüft dieselben Regeln mit `AddValidation()` noch einmal und antwortet bei ungültigen Daten mit 400. In `CampusCuisine.Api/CampusCuisine.Api.http` stehen Beispiel-Anfragen, auch ungültige, um das Backend ohne Frontend zu testen.
