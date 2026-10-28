@@ -67,3 +67,13 @@ Das neue Projekt `CampusCuisine.Client.Tests` testet die Oberfläche mit bUnit u
 ```bash
 dotnet test
 ```
+
+## Step 11: Veröffentlichen
+
+`dotnet publish` macht aus dem Frontend nur statische Dateien (HTML, CSS, JavaScript und die .NET-DLLs als WebAssembly), dazu vorkomprimierte `.gz`- und `.br`-Dateien. Jeder Webserver kann sie ausliefern, hier `nginx`. Wichtig ist nur, dass jede unbekannte Adresse die `index.html` bekommt, damit der Blazor-Router entscheidet. Das Backend läuft wie in der Web API in einem eigenen Container. Beides startet zusammen:
+
+```bash
+docker compose up --build
+```
+
+Die App läuft dann wie vorher unter http://localhost:5100, das Backend unter http://localhost:5200.
